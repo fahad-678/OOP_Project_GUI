@@ -14,10 +14,10 @@ public class Login {
     this.role = -1;
   }
 
-  void login() {
+  void login(int id, String password, boolean check) {
     System.out.println("Enter Login Credential");
-    id = hp.inputValidatorInt("Enter id");
-    password = hp.inputValidatorString("Enter Password", null);
+    this.id = id;
+    this.password = password;
     this.getRole();
     System.out.println("Login Successful");
     this.printUser();
@@ -29,7 +29,7 @@ public class Login {
     if (session == null || session.length == 0) {
       System.out.println("No Session Found!");
       if (!fh.retrieveAdmin().isEmpty()) {
-        this.login();
+        // this.login();
       }
     } else {
       System.out.println("Session Found");
@@ -59,7 +59,7 @@ public class Login {
         case 2:
         case 3:
           this.role = n;
-          this.auth();
+          // this.auth();
           shouldExit = true;
           break;
         case 4:
@@ -73,43 +73,40 @@ public class Login {
     } while (!shouldExit);
   }
 
-  void auth() {
+  boolean auth(int id, String password, boolean remember) {
+    Helper.retrieveData();
     boolean check = false;
-    if (role == 1) {
+    if (Main.activeRole == 1) {
       for (Admin ls : Helper.al) {
-        if (ls.getId() == this.id && ls.getPassword().equals(this.password)) {
+        if (ls.getId() == id && ls.getPassword().equals(password)) {
           Main.activeId = ls.getId();
           Main.activeName = ls.getName();
-          Main.activeRole = this.role;
           check = true;
           break;
         }
       }
-    } else if (role == 2) {
+    } else if (Main.activeRole == 2) {
       for (Teacher ls : Helper.tl) {
-        if (ls.getId() == this.id && ls.getPassword().equals(this.password)) {
+        if (ls.getId() == id && ls.getPassword().equals(password)) {
           Main.activeId = ls.getId();
           Main.activeName = ls.getName();
-          Main.activeRole = this.role;
           check = true;
           break;
         }
       }
     } else {
       for (Student ls : Helper.sl) {
-        if (ls.getId() == this.id && ls.getPassword().equals(this.password)) {
+        if (ls.getId() == id && ls.getPassword().equals(password)) {
           Main.activeId = ls.getId();
           Main.activeName = ls.getName();
-          Main.activeRole = this.role;
           check = true;
           break;
         }
       }
     }
-    if (!check) {
-      System.out.println("Incorrect Id or Password");
-      this.login();
+    if (remember) {
+      sn.saveSession();
     }
-    sn.saveSession();
+    return check;
   }
 }

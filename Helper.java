@@ -19,7 +19,7 @@ public class Helper {
   static List<Attendance> atl;
   static List<Assignment> asl;
   static Scanner sc = new Scanner(System.in);
-  FileHandling fh = new FileHandling();
+  static FileHandling fh = new FileHandling();
   Session sn = new Session();
 
   Helper() {
@@ -32,12 +32,12 @@ public class Helper {
     til = new ArrayList<>();
     atl = new ArrayList<>();
     asl = new ArrayList<>();
-    this.retrieveData();
+    Helper.retrieveData();
   }
 
   Helper(String n) {}
 
-  void retrieveData() {
+  public static void retrieveData() {
     sl = fh.retrieveStudent();
     cl = fh.retrieveCourse();
     al = fh.retrieveAdmin();
