@@ -8,16 +8,13 @@ public class Main {
   static int activeRole = 3;
 
   public static void main(String[] args) {
-    Helper hp = new Helper();
-    LoginGUI lg = new LoginGUI();
     FileHandling fh = new FileHandling();
     String session[] = fh.retrieveSession();
-    Session sn = new Session();
     if (session == null || session.length == 0) {
-      lg.display();
+      new LoginGUI().display();
     } else {
-      sn.retrieveSession();
-      lg.handleMenu();
+      new Session().retrieveSession();
+      new LoginGUI().handleMenu();
     }
     //   Main main = new Main();
     //   main.start();

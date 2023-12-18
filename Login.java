@@ -1,41 +1,9 @@
 public class Login {
 
-  private int id;
-  private String password;
-  private int role;
-  private String[] session;
-  Helper hp = new Helper("Validate");
-  FileHandling fh = new FileHandling();
-  Session sn = new Session();
+  Session sn;
 
   Login() {
-    this.id = -1;
-    this.password = "";
-    this.role = -1;
-  }
-
-  void login(int id, String password, boolean check) {
-    System.out.println("Enter Login Credential");
-    this.id = id;
-    this.password = password;
-    this.getRole();
-    System.out.println("Login Successful");
-    this.printUser();
-  }
-
-  void loginDisplay() {
-    System.out.println("Welcome");
-    session = fh.retrieveSession();
-    if (session == null || session.length == 0) {
-      System.out.println("No Session Found!");
-      if (!fh.retrieveAdmin().isEmpty()) {
-        // this.login();
-      }
-    } else {
-      System.out.println("Session Found");
-      sn.retrieveSession();
-      this.printUser();
-    }
+    sn = new Session();
   }
 
   void printUser() {
@@ -47,30 +15,6 @@ public class Login {
       ", Role : " +
       Main.activeRole
     );
-  }
-
-  void getRole() {
-    int n;
-    boolean shouldExit = false;
-    do {
-      n = hp.inputValidatorInt("1. Admin \n2. Teacher \n3. Student\n4. Exit");
-      switch (n) {
-        case 1:
-        case 2:
-        case 3:
-          this.role = n;
-          // this.auth();
-          shouldExit = true;
-          break;
-        case 4:
-          hp.printExit("Role");
-          shouldExit = true;
-          break;
-        default:
-          hp.printInvalid();
-          break;
-      }
-    } while (!shouldExit);
   }
 
   boolean auth(int id, String password, boolean remember) {
