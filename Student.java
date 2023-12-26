@@ -53,6 +53,18 @@ public class Student implements Serializable {
     return section;
   }
 
+  String getFName() {
+    return f_name;
+  }
+
+  int getAge() {
+    return age;
+  }
+
+  String getAddress() {
+    return address;
+  }
+
   int getSCL(int n) {
     for (Integer ls : scl) {
       if (ls == n) {
@@ -60,6 +72,24 @@ public class Student implements Serializable {
       }
     }
     return -1;
+  }
+
+  Student(
+    String name,
+    String f_name,
+    int age,
+    String address,
+    String section,
+    String password
+  ) {
+    this.name = name;
+    this.f_name = f_name;
+    this.age = age;
+    this.address = address;
+    this.section = section;
+    this.password = password;
+    this.createdBy = Main.activeId;
+    id = idCounter++;
   }
 
   void addStudent() {
@@ -73,15 +103,20 @@ public class Student implements Serializable {
     id = idCounter++;
   }
 
-  void editStudent() {
-    hp = new Helper("Print");
-    name = hp.inputValidatorString("Enter Name:", name);
-    f_name = hp.inputValidatorString("Enter Father Name:", f_name);
-    temp = hp.inputValidatorInt("Enter Age:");
-    age = temp == -1 ? age : temp;
-    address = hp.inputValidatorString("Enter Address:", address);
-    section = hp.inputValidatorString("Enter Section:", section);
-    password = hp.inputValidatorString("Enter Password:", password);
+  void editStudent(
+    String name,
+    String f_name,
+    int age,
+    String address,
+    String section,
+    String password
+  ) {
+    this.name = name;
+    this.f_name = f_name;
+    this.age = age;
+    this.address = address;
+    this.section = section;
+    this.password = password;
   }
 
   void printStudent() {
@@ -104,6 +139,21 @@ public class Student implements Serializable {
       System.out.print(i + " ");
     }
     System.out.print("]\n");
+  }
+
+  void addCourse(int id) {
+    scl.add(id);
+  }
+
+  void deleteCourse(int id) {
+    Iterator<Integer> iterator = scl.iterator();
+    while (iterator.hasNext()) {
+      Integer tc = iterator.next();
+      if (tc == id) {
+        iterator.remove();
+        break;
+      }
+    }
   }
 
   void addCourse() {

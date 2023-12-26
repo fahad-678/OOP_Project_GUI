@@ -7,6 +7,8 @@ public class Main {
   static String activeName;
   static int activeRole = 3;
 
+  static String[] sections = { "Bcs-3B", "Bcs-4A" };
+
   public static void main(String[] args) {
     Helper.retrieveData();
     FileHandling fh = new FileHandling();

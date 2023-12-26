@@ -30,14 +30,25 @@ public class Teacher implements Serializable {
     return createdBy;
   }
 
-  ArrayList<Integer> getTeachCourse() {
-    return (ArrayList<Integer>) teachCourse;
+  int getTeachCourse(int n) {
+    for (Integer ls : teachCourse) {
+      if (ls == n) {
+        return ls;
+      }
+    }
+    return -1;
   }
 
   Teacher() {
     this.id = -1;
     this.name = "";
     this.password = "";
+  }
+
+  Teacher(String name, String password) {
+    this.id = idCounter++;
+    this.password = password;
+    this.name = name;
   }
 
   Teacher(boolean n) {
@@ -51,10 +62,9 @@ public class Teacher implements Serializable {
     id = idCounter++;
   }
 
-  void editTeacher() {
-    hp = new Helper("Print");
-    name = hp.inputValidatorString("Enter Name:", name);
-    password = hp.inputValidatorString("Enter Password:", password);
+  void editTeacher(String name, String password) {
+    this.name = name;
+    this.password = password;
   }
 
   void printTeacher() {
@@ -63,6 +73,21 @@ public class Teacher implements Serializable {
       System.out.print(i + " ");
     }
     System.out.println("]\n");
+  }
+
+  void addCourse(int id) {
+    teachCourse.add(id);
+  }
+
+  void deleteCourse(int id) {
+    Iterator<Integer> iterator = teachCourse.iterator();
+    while (iterator.hasNext()) {
+      Integer tc = iterator.next();
+      if (tc == id) {
+        iterator.remove();
+        break;
+      }
+    }
   }
 
   void addTeachCourse() {

@@ -7,6 +7,7 @@ public class Announcement implements Serializable {
   static int idCounter = 0;
   private String text;
   private int createdBy;
+  private String createdByRole;
   private String createdAt;
   private LocalDateTime validTill;
   transient Helper hp = new Helper("Validator");
@@ -15,21 +16,27 @@ public class Announcement implements Serializable {
     return id;
   }
 
-  Announcement() {
-    this.id = -1;
-    this.text = "";
+  String getText() {
+    return text;
   }
 
-  Announcement(boolean n) {
-    this.addAnnouncement();
+  int getCreatedBy() {
+    return createdBy;
   }
 
-  void addAnnouncement() {
-    text = hp.inputValidatorString("Enter text:", null);
+  String getCreatedByRole() {
+    return createdByRole;
+  }
+
+  String getCreatedAt() {
+    return createdAt;
+  }
+
+  Announcement(String text) {
+    this.text = text;
     createdBy = Main.activeId;
+    createdByRole = Main.activeRole == 1 ? "Admin" : "Teacher";
     createdAt = LocalDateTime.now().toString();
-    hp.print("Valid Till");
-    validTill = hp.setTime();
     id = idCounter++;
   }
 

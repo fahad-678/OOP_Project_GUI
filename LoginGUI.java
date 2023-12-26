@@ -22,7 +22,13 @@ public class LoginGUI implements ActionListener {
   JCheckBox cb;
 
   LoginGUI() {
-    toast = "Student Login";
+    if (Main.activeRole == 1) {
+      toast = "Admin Login";
+    } else if (Main.activeRole == 2) {
+      toast = "Teacher Login";
+    } else {
+      toast = "Student Login";
+    }
   }
 
   void display() {
@@ -38,9 +44,9 @@ public class LoginGUI implements ActionListener {
     password = new JPasswordField();
 
     submit = new JButton("LOGIN");
-    admin = new JButton("Login From Admin");
-    teacher = new JButton("Login From Teacher");
-    student = new JButton("Login From Student");
+    admin = new JButton("Login As Admin");
+    teacher = new JButton("Login As Teacher");
+    student = new JButton("Login As Student");
 
     JLabel labelCheck = new JLabel("Remember Me");
     cb = new JCheckBox();
@@ -154,8 +160,13 @@ public class LoginGUI implements ActionListener {
     }
     switch (Main.activeRole) {
       case 1:
-        AdminMenuGUI adm = new AdminMenuGUI();
-        adm.display();
+        new AdminMenuGUI().display();
+        break;
+      case 2:
+        new TeacherMenuGUI().display();
+        break;
+      case 3:
+        new StudentMenuGUI().display();
         break;
       default:
         break;

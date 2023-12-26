@@ -6,31 +6,12 @@ public class Course implements Serializable {
   static int idCounter = 0;
   private String name;
   private String time;
-  private boolean freeze;
   private String section;
   private int createdBy;
   transient Helper hp = new Helper("Validator");
 
-  //   private String courseMaterial;
-
-  Course() {
-    id = -1;
-    name = "";
-    time = "";
-    freeze = true;
-    section = "";
-  }
-
-  Course(boolean n) {
-    this.addCourse();
-  }
-
   int getId() {
     return id;
-  }
-
-  void setFreeze() {
-    this.freeze = !freeze;
   }
 
   int getCreatedBy() {
@@ -41,20 +22,27 @@ public class Course implements Serializable {
     return section;
   }
 
-  void addCourse() {
-    name = hp.inputValidatorString("Enter Course Name:", null);
-    time = hp.inputValidatorString("Enter Time:", null);
-    section = hp.inputValidatorString("Enter Section:", null);
+  String getName() {
+    return name;
+  }
+
+  String getTime() {
+    return time;
+  }
+
+  Course(String name, String time, String section) {
+    this.name = name;
+    this.time = time;
+    this.section = section;
     createdBy = Main.activeId;
     id = idCounter++;
   }
 
-  void editCourse() {
-    hp = new Helper("Print");
-    name = hp.inputValidatorString("Enter Course Name:", name);
-    time = hp.inputValidatorString("Enter Time:", time);
-    section = hp.inputValidatorString("Enter Section:", section);
-    freeze = hp.inputValidatorBool("Freeze (true/false):");
+  void editCourse(String name, String time, String section) {
+    this.name = name;
+    this.time = time;
+    this.section = section;
+    createdBy = Main.activeId;
   }
 
   void printDetails() {
@@ -66,7 +54,6 @@ public class Course implements Serializable {
       ", Total Time: " +
       time +
       ", Freeze: " +
-      (freeze ? "true" : "false") +
       ", Section " +
       section
     );
