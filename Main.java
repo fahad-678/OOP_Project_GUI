@@ -8,6 +8,7 @@ public class Main {
   static int activeRole = 3;
 
   public static void main(String[] args) {
+    Helper.retrieveData();
     FileHandling fh = new FileHandling();
     String session[] = fh.retrieveSession();
     if (session == null || session.length == 0) {

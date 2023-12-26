@@ -26,6 +26,12 @@ public class Admin implements Serializable {
     this.password = "";
   }
 
+  Admin(String name, String password) {
+    this.id = idCounter++;
+    this.name = name;
+    this.password = password;
+  }
+
   Admin(boolean n) {
     this.addAdmin();
   }
@@ -40,6 +46,11 @@ public class Admin implements Serializable {
     hp = new Helper("Print");
     name = hp.inputValidatorString("Enter Name:", name);
     password = hp.inputValidatorString("Enter Password:", password);
+  }
+
+  void editAdmin(String name, String password) {
+    this.name = name;
+    this.password = password;
   }
 
   void printAdmin() {
