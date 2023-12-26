@@ -92,6 +92,7 @@ public class AdminMenuGUI {
     timetableBtn = new JButton("Timetable");
     logoutBtn = new JButton("Logout");
 
+    profileBtn.addActionListener(e -> adminDis(e));
     adminBtn.addActionListener(e -> adminDis(e));
     teacherBtn.addActionListener(e -> adminDis(e));
     studentBtn.addActionListener(e -> adminDis(e));
@@ -140,6 +141,16 @@ public class AdminMenuGUI {
   void updateList() {
     listModel.clear();
     switch (role) {
+      case 0:
+        for (Admin ls : Helper.al) {
+          if (Main.activeId == ls.getId()) {
+            listModel.addElement(
+              "ID: " + ls.getId() + ", Name: " + ls.getName()
+            );
+            break;
+          }
+        }
+        break;
       case 1:
         for (Admin ls : Helper.al) {
           listModel.addElement("ID: " + ls.getId() + ", Name: " + ls.getName());
@@ -189,7 +200,9 @@ public class AdminMenuGUI {
   }
 
   void adminDis(ActionEvent e) {
-    if (e.getSource() == adminBtn) {
+    if (e.getSource() == profileBtn) {
+      role = 0;
+    } else if (e.getSource() == adminBtn) {
       role = 1;
     } else if (e.getSource() == teacherBtn) {
       role = 2;
@@ -206,7 +219,9 @@ public class AdminMenuGUI {
     this.updateList();
     panel3.removeAll();
 
-    if (role == 3 || role == 2) {
+    if (role == 0) {
+
+    } else if (role == 3 || role == 2) {
       panel3.add(add);
       panel3.add(edit);
       panel3.add(delete);
@@ -1241,5 +1256,4 @@ public class AdminMenuGUI {
     updateList();
     frame.revalidate();
   }
-  
 }
